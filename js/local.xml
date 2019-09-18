@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * local.xml
+ *
+ * Local layout modifications for our local theme
+ *
+ * @category    design
+ * @package     MagentoCamlet
+ * @copyright   Copyright (c) 2015.
+**/
+-->
+<layout version="0.1.0">
+	<default>
+		<!-- Global Layout -->
+		<reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+            <!-- add new layout blocks -->
+            <block type="page/html_wrapper" name="before.header" as="before_header" translate="label">
+            	<label>Before Header</label>
+            	<action method="setElementClass"><value>before-header</value></action>
+            </block>
+            <block type="page/html_wrapper" name="after.header" as="after_header" translate="label">
+            	<label>After Header</label>
+            	<action method="setElementClass"><value>after-header</value></action>
+            </block>
+            <block type="page/html_wrapper" name="before.content" as="before_content" translate="label">
+            	<label>Before Content</label>
+            	<action method="setElementClass"><value>before-content</value></action>
+            </block>
+            <block type="page/html_wrapper" name="after.content" as="after_content" translate="label">
+            	<label>After Content</label>
+            	<action method="setElementClass"><value>after-content</value></action>
+            </block>
+            <block type="page/html_wrapper" name="before.footer" as="before_footer" translate="label">
+            	<label>Before Footer</label>
+            	<action method="setElementClass"><value>before-footer</value></action>     
+            </block>
+            <block type="page/html_wrapper" name="after.footer" as="after_footer" translate="label">
+            	<label>After Footer</label>
+            	<action method="setElementClass"><value>after-footer</value></action>
+            </block>
+        </reference>
+
+		<!-- Global Head -->
+		<reference name="head">
+			<!-- remve RWD related -->            
+			<action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/slideshow.js</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/madisonisland.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/madisonisland-ie8.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/styles-ie8.css</name></action>
+			<action method="removeItem"><type>link_rel</type><name>//fonts.googleapis.com/css?family=Raleway:300,400,500,700,600</name></action>
+			<remove name="head.viewport" />
+			<!-- Load Grid css -->
+			<action method="addCss"><stylesheet>css/grid.css</stylesheet></action>
+		</reference>
+
+		<!-- Global Header -->	
+		<reference name="header">
+			<!-- add cart to header -->
+			<block type="checkout/cart_minicart" name="minicart_head" template="checkout/cart/minicart.phtml">
+              	<block type="checkout/cart_sidebar" name="minicart_total" template="checkout/cart/minicart/minicart_total.phtml" />
+                <block type="checkout/cart_sidebar" name="minicart_content" template="checkout/cart/minicart/items.phtml">
+                    <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/cart/minicart/default.phtml</template></action>
+                    <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/minicart/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/minicart/default.phtml</template></action>
+                    <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/minicart/default.phtml</template></action>
+
+                    <block type="core/text_list" name="cart_sidebar.cart_promotion" as="cart_promotion" translate="label" module="checkout">
+                        <label>Mini-cart promotion block</label>
+                    </block>
+                    <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions" translate="label" module="checkout">
+                        <label>Shopping Cart Sidebar Extra Actions</label>
+                    </block>
+                </block>
+            </block>
+			<!-- add currency to header -->
+			<block type="directory/currency" name="header-currency" template="directory/currency-header.phtml"/>
+            
+
+			<block type="page/html" name="header_account" template="page/theme-pages/header-account.phtml">
+				<!-- call mini login to header -->
+				<block type="customer/form_login" name="header_mini_login"  template="customer/form/mini.login.phtml"/>
+				<!-- call recent orders -->
+				<!-- <block type="sales/order_recent" name="recent_orders" template="sales/order/recent.phtml" /> -->
+			</block>
+                        
+		</reference>
+	
+		<!-- Global Footer -->
+		<reference name="footer">
+			<!-- add Custome JS to footer -->	
+			<block type="page/html_head" name="footerjs" as="footerjs" template="page/html/footerjs.phtml">
+                 <action method="addJs"><script>lib/jquery/jquery-1.10.2.min.js</script></action>			
+				<action method="addJs"><script>lib/jquery/noconflict.js</script></action>
+				
+				<action method="addItem"><type>skin_js</type><name>js/lib/modernizr.custom.min.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/lib/selectivizr.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/lib/matchMedia.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/lib/matchMedia.addListener.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/lib/enquire.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/app.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/lib/imagesloaded.jss</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/minicart.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/msrp.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/minicart.js</name></action>
+				
+				
+				<action method="addItem"><type>skin_js</type><name>js/lib/jquery.fancybox.pack.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/lib/owl.carousel.js</name></action>
+				<action method="addItem"><type>skin_js</type><name>js/scripts.js</name></action>
+			</block>
+		</reference>	
+
+		<!--Magento's Default Sidebar Blocks-->
+		<remove name="head.viewport" />
+		<remove name="cart_sidebar"/> <!--Cart Sidebar-->
+		<remove name="wishlist_sidebar"/> <!--Wishlist Sidebar-->
+		<remove name="catalog.compare.sidebar"/> <!--Compare Items Sidebar-->
+		<remove name="right.permanent.callout"/> <!--Right Callout Sample Data-->
+		<remove name="left.permanent.callout"/> <!--Left Callout Sample Data-->
+		<remove name="right.reports.product.viewed"/> <!--Viewed Products-->
+        <remove name="left.reports.product.viewed" />
+		<remove name="right.reports.product.compared"/> <!--Compared Products-->
+		<!-- <remove name="left.newsletter"/> --> <!--Sidebar Newsletter-->
+		<remove name="right.poll"/> <!--Poll-->
+		<remove name="tags_popular"/> <!--Popular Tags-->
+		<remove name="paypal.partner.right.logo"/> <!--Paypal logo Sample Data-->
+		<remove name="sale.reorder.sidebar"/> <!--Reorder Sidebar When User Logged, in Dashboard-->
+		<remove name="checkout_cart_link" />
+                      
+	</default>
+
+	<!-- cms pages -->
+	<cms_page>
+	</cms_page>
+		
+	<!-- CMS Home Page -->
+	<cms_index_index>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="header">
+			
+		</reference>
+		<reference name="before.content">
+            <!-- Home Slider -->
+			<block type="page/html" name="home-slider" as="home-slider" template="page/theme-pages/home-slider.phtml" />
+			<!-- Product Custom List -->
+            <block type="catalog/product_list" name="product-custom-list" as="product_list" after="catalog.categories" template="catalog/product/list/product-custom-list.phtml">
+				<action method="setData"><name>categories</name><value>4,5,6,7</value></action>
+			</block>            
+		</reference>        
+		<reference name="footerjs">
+			
+		</reference>
+	</cms_index_index>
+
+
+	<!-- catalog category default -->
+	<catalog_category_default translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+
+        <reference name="before.content">
+            <block type="catalog/category_view" name="categpry_page_info" as="topCategoriInfo" template="page/theme-pages/category-header.phtml"/>
+        </reference>
+        		
+		<reference name="left">
+			<!-- <remove name="currency"/>
+			<action method="unsetChild"><alias>catalog.leftnav</alias></action>
+			<action method="insert"><blockName>catalog.leftnav</blockName><after>0</after></action> -->
+		</reference>
+
+		<reference name="before.footers">
+        </reference>
+	</catalog_category_default>
+
+<!-- catalog category layered -->
+	<catalog_category_layered translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+
+        <reference name="before.content">
+            <block type="catalog/category_view" name="categpry_page_info" as="topCategoriInfo" template="page/theme-pages/category-header.phtml"/>
+        </reference>
+        		
+		<reference name="left">
+			<!-- <remove name="currency"/>
+			<action method="unsetChild"><alias>catalog.leftnav</alias></action>
+			<action method="insert"><blockName>catalog.leftnav</blockName><after>0</after></action> -->
+		</reference>
+
+		<reference name="before.footers">
+        </reference>
+	</catalog_category_layered>
+
+<!-- catalog search result index -->
+	<catalogsearch_result_index translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+
+        <reference name="before.content">
+            <block type="catalog/category_view" name="categpry_page_info" as="topCategoriInfo" template="page/theme-pages/category-header.phtml"/>
+        </reference>
+                
+		<reference name="left">
+            <remove name="currency"/>
+			<action method="unsetChild"><alias>catalog.leftnav</alias></action>
+			<action method="insert"><blockName>catalog.leftnav</blockName><after>0</after></action>
+		</reference>
+        
+		<reference name="before.footers">
+        </reference>        
+	</catalogsearch_result_index>
+
+<!-- catalog search advanced index -->
+	<catalogsearch_advanced_index translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+        
+        <reference name="before.content">
+            <block type="catalog/category_view" name="categpry_page_info" as="topCategoriInfo" template="page/theme-pages/category-header.phtml"/>
+        </reference>    
+            
+		<reference name="before.footers">
+        </reference>        
+	</catalogsearch_advanced_index>
+
+<!-- catalog search advanced result -->
+	<catalogsearch_advanced_result translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+
+        <reference name="before.content">
+            <block type="catalog/category_view" name="categpry_page_info" as="topCategoriInfo" template="page/theme-pages/category-header.phtml"/>
+        </reference>
+                
+		<reference name="left">
+            <remove name="currency"/>
+			<action method="unsetChild"><alias>catalog.leftnav</alias></action>
+			<action method="insert"><blockName>catalog.leftnav</blockName><after>0</after></action>>
+		</reference>
+        
+		<reference name="before.footers">
+        </reference>        
+	</catalogsearch_advanced_result>
+
+
+<!-- product -->
+	<catalog_product_view translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+        
+		<reference name="content">
+            <remove name="product.info.addto"/>
+        </reference>
+        
+		<reference name="footerjs">
+		</reference>
+
+        <reference name="after.content">
+			<block type="catalog/product" name="info-tabs" template="catalog/product/view/tabs.phtml">
+				<block type="review/product_view_list" name="product.info.product_additional_data" as="review" template="review/product/view/list.phtml">
+	          		<block type="review/form" name="product.review.form" as="review_form" template="review/form.phtml"/>
+				</block>
+			</block>                        
+        </reference>      
+        
+        <reference name="before.footer">
+            <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
+                <action method="setColumnCount"><columns>6</columns></action>
+                <action method="setItemLimit"><type>upsell</type><limit>6</limit></action>
+            </block>                      
+        </reference>        
+	</catalog_product_view>
+
+
+<!-- check out page -->
+	<checkout_onepage_index translate="label">
+		<reference name="root">
+            		<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="page/html_wrapper" name="checkout.progress.wrapper" translate="label">
+                	<label>Checkout Progress Wrapper</label>
+                	<action method="setElementId"><value>checkout-progress-wrapper</value></action>
+                	<block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml"/>
+            		</block>
+		</reference>
+	</checkout_onepage_index>
+	
+	<!-- csutomer related -->
+	<customer_account_login translate="label">
+		<reference name="root">
+		    <action method="addBodyClass"><classname>login-create</classname></action>
+		</reference>
+		<reference name="content">
+			<remove name="customer_form_login" />
+            <block type="customer/form_login" name="customer_form_login_new" template="customer/form/login.phtml">
+				<block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml" />
+    		</block>        
+		</reference>
+	</customer_account_login> 
+
+	<customer_account_forgotpassword translate="label">
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/empty.phtml</template>
+            </action>
+        </reference>
+    </customer_account_forgotpassword>
+    <!-- New customer registration -->
+    <customer_account_create translate="label">
+    	<reference name="root">
+		    <action method="addBodyClass"><classname>login_create</classname></action>
+		</reference>
+    	<reference name="content">
+			<remove name="customer_form_register" />
+            <block type="customer/form_login" name="customer_form_login" before="-" template="customer/form/login.phtml" />
+
+            <block type="customer/form_register" name="customer_form_register_2" template="customer/form/register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+
+            </block>
+        </reference>
+    </customer_account_create>
+
+    <contacts_index_index translate="label">
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+        </reference>
+    </contacts_index_index>
+	 
+</layout>
